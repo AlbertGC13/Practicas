@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="/templates/plantilla.html::head">
+    <title th:text="${titulo}"></title>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <nav class="header__menu">
+                        <ul>
+                            <li><a href="/">Inicio</a></li>
+                            <li ><a href="/Carrito">Carrito</a></li>
+                            <li class="active"><a href="/Seguridad/Productos">Administrador</a></li>
+                            <li><a href="/Seguridad/Pedidos">Pedidos</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-lg-3">
+                    <div class="header__cart">
+                        <ul>
+                            <li><a href="/Carrito"><i class="fa fa-shopping-bag"><span th:text="${cantidad_carrito}"></span></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="breadcrumb-section set-bg" data-setbg="/img/slide2.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb__text">
+                        <h2 th:text="${titulo}">Listado de productos</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Checkout Section Begin -->
+    <section class="checkout">
+        <div class="container">
+            <div class="checkout__form">
+                <form action="/Seguridad/Productos/Crear" method="get">
+                    <div class="row">
+                        <input type="submit" class="site-btn checkout__input" value="Crear"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section class="shoping-cart">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="shoping__cart__table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="shoping__product">Productos</th>
+                                    <th>Cantidad</th>
+                                    <th>Precio Unit.</th>
+                                    <th>Total</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="producto : ${lista}">
+                                    <td class="shoping__cart__item">
+                                        <img width="100px" src="/img/producto.png" alt="">
+                                        <h5 th:text="${producto.nombre}"></h5>
+                                    </td>
+                                  <td id="td_cantidad" class="shoping__cart__quantity" th:text="${producto.cantidad}"></td>
+                                    <td class="shoping__cart__price" th:text="${producto.precio}"></td>
+                                    <td class="shoping__cart__total" th:text="${producto.precio}"></td>
+                                    <td class="shoping__cart__item__close">
+                                        <form method="POST" th:action="'/Seguridad/Productos/Eliminar/' + ${producto.id}">
+                                            <a onclick="this.parentNode.submit();"><span class="fa fa-trash-o"></span></a>
+                                        </form>
+                                        <a methods="post" th:href="'/Seguridad/Productos/Actualizar/' + ${producto.id}"><span class="fa fa-pencil"></span></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="footer__copyright">
+                        <div class="footer__copyright__text">
+                            <p>
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                Copyright &copy;
+                                <script>document.write(new Date().getFullYear());</script> All rights reserved | This
+                                template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a
+                                    href="https://colorlib.com" target="_blank">Colorlib</a>
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div th:replace="/templates/plantilla.html::javascript">
+    </div>
+</body>
+
+</html>
